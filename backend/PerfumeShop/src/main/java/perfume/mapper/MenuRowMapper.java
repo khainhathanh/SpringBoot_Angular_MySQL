@@ -14,7 +14,7 @@ public class MenuRowMapper implements RowMapper<ParentMenu> {
 	@Override
 	public ParentMenu mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ParentMenu menu = new ParentMenu();
-		menu.setId_menu(rs.getInt("id_menu"));
+		menu.setIdMenu(rs.getInt("id_menu"));
 		menu.setName(rs.getString("name"));
         return menu;
 	}

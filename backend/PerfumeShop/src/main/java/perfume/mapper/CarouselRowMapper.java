@@ -14,7 +14,7 @@ public class CarouselRowMapper implements RowMapper<Carousel> {
 	@Override
 	public Carousel mapRow(ResultSet rs, int rowNum) throws SQLException {
 		 Carousel carousel = new Carousel();
-		 	carousel.setId_carousel(rs.getInt("id_carousel"));
+		 	carousel.setIdCarousel(rs.getInt("id_carousel"));
 		 	carousel.setImg(rs.getString("img"));
 		 	carousel.setAlt(rs.getString("alt"));
 		 	carousel.setActive(rs.getInt("active"));

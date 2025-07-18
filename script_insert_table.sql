@@ -7,10 +7,10 @@ INSERT INTO `perfume`.`admin`(`id_admin`,`id_user`,`opt`)
 INSERT INTO `perfume`.`trademarks`(`id_trademark`,`name`,`description`) 
 	VALUES(1,'Helenvate','Thương hiệu Pháp');
 
-INSERT INTO `perfume`.`perfumes`(`id_perfume`,`id_trademark`,`name`,`img`,`description`,`cost`,`gender`,`capacity`,`rating_level`,`status`) 
-	VALUES 	(1,1,'sauvage','assets/sp1.jpg','Hello savage',100000,1,'200',4,1),
-			(2,1,'Hevalin Rose','assets/sp2.jpg','Hello Hevalin',1200000,1,'200',4,1);
-            
+INSERT INTO `perfume`.`perfumes`(`id_perfume`,`id_trademark`,`name`,`description`,`gender`,`capacity`,`rating_level`) 
+	VALUES 	(1,1,'sauvage','Hello savage',1,'200',4),
+			(2,1,'Hevalin Rose','Hello Hevalin',1,'200',4);
+
 INSERT INTO `perfume`.`comments`(`id_comment`,`id_perfume`,`id_personcomment`,`email`,`name_commnet`,`description`,`create_date`,`create_update`) 
 	VALUES(1,1,1,'user1@gmail.com','user1','aaaaaaaa','2022-12-01','2022-12-02');
     
@@ -39,10 +39,17 @@ INSERT INTO `perfume`.`payments`(`id_payment`,`id_customer`,`id_order`,`name_cus
 	VALUES(1,1,1,1,'thành viên','09876543210','user1@gmail.com','25 Nguyễn Văn Cừ','giao hàng trước 11:00',51000,500,'Gấu bông',50500,'chuyển khoản');
 
 INSERT INTO `perfume`.`smells`(`id_smell`,`name`) 
-	VALUES(1,'Gỗ' );
+	VALUES(1,'Gỗ' ),
+    (2,'Hướng Dương' ),
+    (3,'Cỏ Mục' );
     
-INSERT INTO `perfume`.`perfume-smells`(`id_perfume`,`id_smell`,`quantity`,`cost`) 
-	VALUES(1,1,1,100000);
+INSERT INTO `perfume`.`perfume-smells`(`id_perfume`,`id_smell`,`quantity`,`cost`,`status`) 
+	VALUES(1,1,1,100000,1),
+		(2,1,1,1200000,0),
+        (2,3,1,1300000,0),
+        (2,2,1,1400000,0),
+        (1,2,1,1500000,0),
+        (1,3,1,1600000,0);
     
 INSERT INTO `perfume`.`roles`(`id_role`,`name`) 
 	VALUES (1,'Thành viên'),(2,'Quản trị viên');
@@ -78,6 +85,15 @@ INSERT INTO `perfume`.`role-menus`(`id_menu`,`id_role`,`isChild`)
            (4,1,0),
            (5,1,0),
            (6,1,0);
+INSERT INTO `perfume`.`picture`(`id_picture`,`id_perfume`,`id_smell`,`picture_name`,`src`)
+	VALUES (1,1,3,'','assets/sp1.jpg'),
+    (2,1,1,'','assets/sp2.jpg'),
+    (3,1,2,'','assets/sp1.jpg'),
+    (4,2,1,'','assets/sp1.jpg'),
+    (5,2,2,'','assets/sp2.jpg'),
+    (6,2,3,'','assets/sp1.jpg');
+
+           
 
 
 

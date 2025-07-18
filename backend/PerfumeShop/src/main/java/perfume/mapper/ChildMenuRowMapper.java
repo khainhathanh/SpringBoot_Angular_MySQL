@@ -14,8 +14,8 @@ public class ChildMenuRowMapper  implements RowMapper<ChildMenu>{
 	@Override
 	public ChildMenu mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ChildMenu childMenu = new ChildMenu();
-		childMenu.setId_childMenu(rs.getInt("id_childMenu"));
-		childMenu.setId_menu(rs.getInt("id_menu"));
+		childMenu.setIdChildMenu(rs.getInt("id_childMenu"));
+		childMenu.setIdMenu(rs.getInt("id_menu"));
 		childMenu.setName(rs.getString("name"));
         return childMenu;
 	}

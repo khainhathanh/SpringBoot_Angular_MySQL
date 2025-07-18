@@ -3,8 +3,8 @@ package perfume.entity;
 import lombok.Data;
 
 @Data
-public class ChildMenu {
-	private int idChildMenu;
-	private int idMenu;
+public class Trademark {
+	private int idTrademark;
 	private String name;
+
 }

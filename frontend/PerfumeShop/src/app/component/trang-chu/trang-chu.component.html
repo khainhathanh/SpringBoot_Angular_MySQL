@@ -22,52 +22,61 @@
   </div>
   
   <section>
-      <div class="py-5">
-        <div class="row">
-          <div *ngFor= "let perfume of listPerfume; index as i; first as isFirst" class="col-md-12 col-lg-3 mb-4">
-            <div class="card">
-              <div class="d-flex justify-content-between p-3">
-                <p class="lead mb-0">Today's Combo Offer</p>
-                <div
-                  class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-                  style="width: 35px; height: 35px;">
-                  <p class="text-white mb-0 small">x4</p>
-                </div>
+    <div class="py-5">
+      <div class="row">
+        <div *ngFor="let perfume of pagePerfume?.listItem; index as i; first as isFirst" class="col-md-12 col-lg-3 mb-4">
+          <div class="card">
+            <div class="d-flex justify-content-between p-3">
+              <p class="lead mb-0">Today's Combo Offer</p>
+              <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                style="width: 35px; height: 35px;">
+                <p class="text-white mb-0 small">x4</p>
               </div>
-              <a (click)="getDetailPerfume()" >
-                <img [src]= "perfume.img" class="card-img-top" alt="Laptop"/>
-              </a>
-              <div class="card-body">
+            </div>
+            <a (click)="getDetailPerfume(perfume.perfume.idPerfume)">
+              <img [src]="perfume.picturePerfumeList[0][0]?.src" class="card-img-top" alt="Laptop" />
+            </a>
+            <div class="card-body">
   
               <div class="d-block">
-                  
+  
               </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <h5 class="mb-0"><a href="#!" class="text-dark text-decoration-none">{{perfume.name}}</a></h5>
-                  <div class="d-block">
-                      <h5 class="text-danger text-end"><s>{{perfume.cost}}</s></h5>
-                      <h5 class="text-dark text-end">{{perfume.cost}}</h5>
-                  </div>
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="mb-0"><a href="#!" class="text-dark text-decoration-none">{{perfume.perfume.name}}</a></h5>
+                <div class="d-block">
+                  <h5 class="text-dark text-end">{{perfume.smellPerfumeList[0].cost}}</h5>
                 </div>
+              </div>
   
-                <div class="d-flex justify-content-between mb-2">
-                  <button type="button" class="btn btn-primary" >Thêm giỏ hàng</button>
-                  <button type="button" class="btn btn-primary" >Mua ngay</button>
-                </div>
+              <div class="d-flex justify-content-between mb-2">
+                <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
+                <button type="button" class="btn btn-primary">Mua ngay</button>
+              </div>
   
-                <div class="d-flex justify-content-between mb-2">
-                  <div class="ms-auto text-warning">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                  </div>
+              <div class="d-flex justify-content-between mb-2">
+                <div class="ms-auto text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li *ngFor="let page of pagePerfume?.totalPageArray; index as i; first as isFirst" class="page-item"><a class="page-link" (click)="getPagePerfume(page)">{{page}}</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </section>
 </div>

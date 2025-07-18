@@ -11,6 +11,6 @@ export class MenuService {
 
   getListMenus(role : number){
     const options = role ? { params: new HttpParams().set('role', role) } : {};
-    return this.http.get<any[]>(this.apiUrl + "/listMenu",options);
+    return this.http.get<any[]>(this.apiUrl + "/listMenu", options);
   }
 }

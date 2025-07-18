@@ -8,17 +8,22 @@ import { Router } from '@angular/router';
   styleUrl: './trang-chu.component.css'
 })
 export class TrangChuComponent {
-  listPerfume : any[] = [];
+  pagePerfume : any;
   listCarousel : any[] = [];
+  page : number = 1;
+  size : number = 1;
 
-  constructor (private perfumeService : PerfumesService, private router : Router){
+  constructor (private perfumeService : PerfumesService, private router : Router) {}
+
+  ngOnInit () {
     this.getAllPerfume()
     this.getAllCarousels()
   }
 
   getAllPerfume(){
-    this.perfumeService.getAllPerfumes().subscribe((data : any[])=>{
-      this.listPerfume = data
+    this.perfumeService.getAllPerfumes(this.page, this.size).subscribe((data : any[])=>{
+      this.pagePerfume = data
+      this.pagePerfume.totalPageArray = Array.from({ length: this.pagePerfume.totalPage }, (_, i) => i + 1);
     })
   }
 
@@ -28,7 +33,15 @@ export class TrangChuComponent {
     })
   }
 
-  getDetailPerfume = ()  => {
-    this.router.navigate(['/detail-perfume']);
+  getDetailPerfume = (idPerfume: number)  => {
+    this.perfumeService.getDetailPerfume(idPerfume).subscribe((data : any[])=>{
+      localStorage.setItem('shareData', JSON.stringify(data));
+      this.router.navigate(['/detail-perfume']);
+    })
+  }
+
+  getPagePerfume = (page: number) => {
+    this.page = page;
+    this.getAllPerfume();
   }
 }

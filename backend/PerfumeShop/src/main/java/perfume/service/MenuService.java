@@ -25,9 +25,9 @@ public class MenuService {
 		if(!listAllParent.isEmpty() && listAllParent != null) {
 			for(ParentMenu parentMenu : listAllParent) {
 				MenuDto menuItem = new MenuDto();
-				List<ChildMenu> listChild = listAllChild.stream().filter(child -> child.getId_menu() == parentMenu.getId_menu()).collect(Collectors.toList());
+				List<ChildMenu> listChild = listAllChild.stream().filter(child -> child.getIdMenu() == parentMenu.getIdMenu()).collect(Collectors.toList());
 				
-				menuItem.setId_menu(parentMenu.getId_menu());
+				menuItem.setIdMenu(parentMenu.getIdMenu());
 				menuItem.setName(parentMenu.getName());
 				menuItem.setListChild(listChild);
 				

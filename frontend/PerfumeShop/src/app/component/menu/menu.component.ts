@@ -17,7 +17,6 @@ export class MenuComponent {
   getListMenu(){
     this.menuService.getListMenus(this.role).subscribe((data : any[])=>{
       this.listMenu = data
-      console.log(this.listMenu)
     })
   }
 }

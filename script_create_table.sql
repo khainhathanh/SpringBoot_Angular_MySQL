@@ -27,14 +27,11 @@ CREATE TABLE `perfume`.`users` (
   `id_perfume` INT NOT NULL AUTO_INCREMENT,
   `id_trademark` INT NULL ,
   `name` VARCHAR(45) NULL,
-  `img` VARCHAR(200) NULL,
   `description` VARCHAR(45) NULL,
-  `cost` decimal(18,5) NULL,
   `gender` int NULL,
   `origin` VARCHAR(45) NULL,
   `capacity` VARCHAR(20) NULL,
   `rating_level` int null,
-  `status` int NULL,
   constraint FK_trademark_perfume foreign key(`id_trademark`) references`trademarks`(`id_trademark`),
   PRIMARY KEY (`id_perfume`));
   
@@ -152,6 +149,7 @@ CREATE TABLE `perfume`.`admin` (
   `id_smell` INT NOT NULL ,
   `quantity` int NULL,
   `cost` decimal(18,5) NULL,
+  `status` int NULL,
   constraint FK_perfume_smell foreign key(`id_perfume`) references`perfumes`(`id_perfume`),
   constraint FK_smell_perfume foreign key(`id_smell`) references`smells`(`id_smell`),
   PRIMARY KEY (`id_perfume`,`id_smell`));
@@ -181,3 +179,14 @@ CREATE TABLE `perfume`.`carousel` (
   `alt` VARCHAR(45) NULL,
   `active` INT NULL,
    PRIMARY KEY (`id_carousel`));
+   
+CREATE TABLE `perfume`.`picture` (
+  `id_picture` INT NOT NULL AUTO_INCREMENT,
+  `id_perfume` INT NOT NULL ,
+  `id_smell` INT NOT NULL ,
+  `picture_name` VARCHAR(200) NULL,
+  `src` VARCHAR(200) NULL,
+  constraint FK_picture_smell foreign key (`id_perfume`,`id_smell`) references `perfume-smells`(`id_perfume`,`id_smell`),
+  PRIMARY KEY (`id_picture`));
+   
+
