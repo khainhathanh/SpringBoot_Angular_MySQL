@@ -4,53 +4,44 @@
         <aside class="col-lg-6">
           <div class="border rounded-4 mb-3 d-flex justify-content-center">
             <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="#">
-              <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" [src]="picturePerfume[0].src" />
+              <img class="rounded-4 fit" [src]="picturePerfume[0].src" />
             </a>
           </div>
           <div class="d-flex justify-content-center mb-3">
             <a *ngFor="let picture of picturePerfume; index as i; first as isFirst" data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="#" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" [src]="picture.src" />
+              <img class="rounded-2 picture-perfume" [src]="picture.src" />
             </a>
           </div>
-          <!-- thumbs-wrap.// -->
-          <!-- gallery-wrap .end// -->
         </aside>
         <main class="col-lg-6">
           <div class="ps-lg-3">
             <h4 class="title text-dark">{{perfume.perfume.name}}</h4>
             <div class="d-flex flex-row my-3">
                 <div class="ms-0 text-warning">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
+                    <i *ngFor="let start of totalRatingArray; index as i; first as isFirst" class="bi" [ngClass]="perfume.perfume.ratingLevel > i ? 'bi-star-fill' : 'bi-star' "></i>
                   </div>
             </div>
 
             <div class="mb-3">
                 <span class="h6">Tình trạng :</span>
-                <span class="text-success ms-2">{{smellPerfume.status}}</span>
+                <span class="text-success ms-2">{{statusPer}}</span>
             </div>
   
             <div class="mb-3">
               <span class="h5">{{smellPerfume.cost}}</span>
               <span class="text-muted">đ</span>
             </div>
-  
-            <p>
-              {{perfume.perfume.description}}
-            </p>
-  
+
+            <p>{{perfume.perfume.description}}</p>
             <div class="row">
               <dt class="col-3">Giới tính:</dt>
-              <dd class="col-9">Nam</dd>
+              <dd class="col-9">{{gender}}</dd>
   
               <dt class="col-3">Xuất sứ</dt>
-              <dd class="col-9">Pháp</dd>
+              <dd class="col-9">{{perfume.perfume.origin}}</dd>
   
               <dt class="col-3">Thương hiệu</dt>
-              <dd class="col-9">Attend</dd>
+              <dd class="col-9">{{tradeMark.name}}</dd>
 
             </div>
   
@@ -59,19 +50,19 @@
             <div class="row mb-4">
               <div class="col-md-4 col-6">
                 <label class="mb-2">Smell</label>
-                <select class="form-select border border-secondary" style="height: 35px;">
-                  <option *ngFor="let smell of perfume?.smells; index as i; first as isFirst">{{smell.name}}</option>
+                <select class="form-select border border-secondary box-smell" (change)="onSmellChange($event)">
+                  <option *ngFor="let smell of perfume?.smells; index as i; first as isFirst" [value]="smell.idSmell">{{smell.name}}</option>
                 </select>
               </div>
               <!-- col.// -->
               <div class="col-md-4 col-6 mb-3">
                 <label class="mb-2 d-block">Quantity</label>
-                <div class="input-group mb-3" style="width: 170px;">
-                  <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                <div class="input-group mb-3">
+                  <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark" (click)="dashQuantity()">
                     <i class="bi bi-dash-lg"></i>
                   </button>
-                  <input type="text" class="form-control text-center border border-secondary" [placeholder]="smellPerfume.amount" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                  <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                  <input type="text" class="form-control text-center border border-secondary" [value]="amountPer" [(ngModel)]="amountPer" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                  <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark" (click)="pushQuantity()">
                     <i class="bi bi-plus-lg"></i>
                   </button>
                 </div>
@@ -188,7 +179,7 @@
                 <h5 class="card-title">Similar items</h5>
                 <div class="d-flex mb-3">
                   <a href="#" class="me-3">
-                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/8.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/8.webp" class="img-md img-thumbnail" />
                   </a>
                   <div class="info">
                     <a href="#" class="nav-link mb-1">
@@ -201,7 +192,7 @@
   
                 <div class="d-flex mb-3">
                   <a href="#" class="me-3">
-                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/9.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/9.webp" class="img-md img-thumbnail" />
                   </a>
                   <div class="info">
                     <a href="#" class="nav-link mb-1">
@@ -214,7 +205,7 @@
   
                 <div class="d-flex mb-3">
                   <a href="#" class="me-3">
-                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/10.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/10.webp" class="img-md img-thumbnail" />
                   </a>
                   <div class="info">
                     <a href="#" class="nav-link mb-1"> T-shirts with multiple colors, for men and lady </a>
@@ -224,7 +215,7 @@
   
                 <div class="d-flex">
                   <a href="#" class="me-3">
-                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/11.webp" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                    <img src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/11.webp" class="img-md img-thumbnail" />
                   </a>
                   <div class="info">
                     <a href="#" class="nav-link mb-1"> Blazer Suit Dress Jacket for Men, Blue color </a>

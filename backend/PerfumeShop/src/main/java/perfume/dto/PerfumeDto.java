@@ -6,20 +6,14 @@ import perfume.entity.Perfume;
 import perfume.entity.PicturePerfume;
 import perfume.entity.SmellPerfume;
 import perfume.entity.Smells;
+import perfume.entity.Trademark;
 
 public class PerfumeDto {
 	private Perfume perfume;
 	private List<Smells> smells;
+	private Trademark trademark;
 	private List<SmellPerfume> smellPerfumeList;
-	private List<List<PicturePerfume>> picturePerfumeList;	
-
-	public List<List<PicturePerfume>> getPicturePerfumeList() {
-		return picturePerfumeList;
-	}
-
-	public void setPicturePerfumeList(List<List<PicturePerfume>> picturePerfumeList) {
-		this.picturePerfumeList = picturePerfumeList;
-	}
+	private List<PicturePerfume> picturePerfumeList;	
 
 	public Perfume getPerfume() {
 		return perfume;
@@ -44,7 +38,22 @@ public class PerfumeDto {
 	public void setSmells(List<Smells> smells) {
 		this.smells = smells;
 	}
-	
+
+	public Trademark getTrademark() {
+		return trademark;
+	}
+
+	public void setTrademark(Trademark trademark) {
+		this.trademark = trademark;
+	}
+
+	public List<PicturePerfume> getPicturePerfumeList() {
+		return picturePerfumeList;
+	}
+
+	public void setPicturePerfumeList(List<PicturePerfume> picturePerfumeList) {
+		this.picturePerfumeList = picturePerfumeList;
+	}
 	
 	
 }

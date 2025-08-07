@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app.routes';
 import { CartPerfumeComponent } from './component/cart-perfume/cart-perfume.component';
 import { DetailPerfumeComponent } from './component/detail-perfume/detail-perfume.component';
 import { PaymentPerfumeComponent } from './component/payment-perfume/payment-perfume.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PaymentPerfumeComponent } from './component/payment-perfume/payment-per
     AppRoutingModule,
     FontAwesomeModule,
     CommonModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [

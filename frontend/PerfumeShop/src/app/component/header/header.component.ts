@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  productAmount: number = 1;
+  constructor (private router : Router){}
+  getCartPerfume() {
+    this.router.navigate(['/cart-perfume'])
+  }
 }

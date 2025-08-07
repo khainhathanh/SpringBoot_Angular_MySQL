@@ -28,13 +28,12 @@
           <div class="card">
             <div class="d-flex justify-content-between p-3">
               <p class="lead mb-0">Today's Combo Offer</p>
-              <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-                style="width: 35px; height: 35px;">
+              <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong">
                 <p class="text-white mb-0 small">x4</p>
               </div>
             </div>
             <a (click)="getDetailPerfume(perfume.perfume.idPerfume)">
-              <img [src]="perfume.picturePerfumeList[0][0]?.src" class="card-img-top" alt="Laptop" />
+              <img [src]="perfume.picturePerfumeList[0]?.src" class="card-img-top" alt="Laptop" />
             </a>
             <div class="card-body">
   
@@ -49,17 +48,13 @@
               </div>
   
               <div class="d-flex justify-content-between mb-2">
-                <button type="button" class="btn btn-primary">Thêm giỏ hàng</button>
-                <button type="button" class="btn btn-primary">Mua ngay</button>
+                <button type="button" class="btn btn-primary shadow-0" (click)="addCart(perfume.perfume.idPerfume)">Add to cart</button>
+                <button type="button" class="btn btn-primary shadow-0">Buy now</button>
               </div>
   
               <div class="d-flex justify-content-between mb-2">
                 <div class="ms-auto text-warning">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star"></i>
+                  <i *ngFor="let start of totalRatingArray; index as i; first as isFirst" class="bi" [ngClass]="perfume.perfume.ratingLevel > i ? 'bi-star-fill' : 'bi-star' "></i>
                 </div>
               </div>
             </div>
@@ -68,15 +63,15 @@
       </div>
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-          </li>
-          <li *ngFor="let page of pagePerfume?.totalPageArray; index as i; first as isFirst" class="page-item"><a class="page-link" (click)="getPagePerfume(page)">{{page}}</a></li>
           <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a class="page-link" href="#" (click)="getPagePrevious()">Previous</a>
+          </li>
+          <li *ngFor="let page of pagePerfume?.totalPageList; index as i; first as isFirst" class="page-item" [ngClass]="pageCurrent === page ? 'active' :''"><a class="page-link" (click)="getPagePerfume(page)">{{page}}</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" (click)="getPageNext()">Next</a>
           </li>
         </ul>
       </nav>
     </div>
   </section>
-</div>
+</div> 

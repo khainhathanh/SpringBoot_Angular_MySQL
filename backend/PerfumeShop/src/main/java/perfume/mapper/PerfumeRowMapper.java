@@ -21,6 +21,7 @@ public class PerfumeRowMapper implements RowMapper<Perfume>  {
         perfume.setGender(rs.getInt("gender"));
         perfume.setCapacity(rs.getString("capacity"));
         perfume.setRatingLevel(rs.getInt("rating_level"));
+        perfume.setOrigin(rs.getString("origin"));
         
         return perfume;
     }

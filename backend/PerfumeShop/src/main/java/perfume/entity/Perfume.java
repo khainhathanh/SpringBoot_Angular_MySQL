@@ -11,5 +11,5 @@ public class Perfume {
 	private int gender;
 	private String capacity;
 	private int ratingLevel;
-
+	private String origin;
 }

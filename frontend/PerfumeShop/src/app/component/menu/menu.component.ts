@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuService } from '../../service/menu.service';
 import { Router } from '@angular/router';
+import { ParentMenu } from '../../entity/ParentMenu';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-  listMenu : any[] = []
+  listMenu! : ParentMenu[];
   role : number = 1;
   constructor (private menuService : MenuService, private router : Router){
     this.getListMenu()

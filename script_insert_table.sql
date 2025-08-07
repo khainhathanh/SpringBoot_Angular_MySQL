@@ -5,11 +5,12 @@ INSERT INTO `perfume`.`admin`(`id_admin`,`id_user`,`opt`)
 	VALUES(1,2,null);
     
 INSERT INTO `perfume`.`trademarks`(`id_trademark`,`name`,`description`) 
-	VALUES(1,'Helenvate','Thương hiệu Pháp');
+	VALUES(1,'Helenvate','Thương hiệu Pháp'),
+    (2,'Hansometer','Thương hiệu Italy');
 
-INSERT INTO `perfume`.`perfumes`(`id_perfume`,`id_trademark`,`name`,`description`,`gender`,`capacity`,`rating_level`) 
-	VALUES 	(1,1,'sauvage','Hello savage',1,'200',4),
-			(2,1,'Hevalin Rose','Hello Hevalin',1,'200',4);
+INSERT INTO `perfume`.`perfumes`(`id_perfume`,`id_trademark`,`name`,`description`,`gender`,`origin`, `capacity`,`rating_level`) 
+	VALUES 	(1,1,'sauvage','Hello savage',1,'Pháp','200',4),
+			(2,2,'Hevalin Rose','Hello Hevalin',0,'Italy','200',3);
 
 INSERT INTO `perfume`.`comments`(`id_comment`,`id_perfume`,`id_personcomment`,`email`,`name_commnet`,`description`,`create_date`,`create_update`) 
 	VALUES(1,1,1,'user1@gmail.com','user1','aaaaaaaa','2022-12-01','2022-12-02');
@@ -87,11 +88,13 @@ INSERT INTO `perfume`.`role-menus`(`id_menu`,`id_role`,`isChild`)
            (6,1,0);
 INSERT INTO `perfume`.`picture`(`id_picture`,`id_perfume`,`id_smell`,`picture_name`,`src`)
 	VALUES (1,1,3,'','assets/sp1.jpg'),
-    (2,1,1,'','assets/sp2.jpg'),
+    (2,1,1,'','assets/sp1.jpg'),
     (3,1,2,'','assets/sp1.jpg'),
-    (4,2,1,'','assets/sp1.jpg'),
+    (4,2,1,'','assets/sp2.jpg'),
     (5,2,2,'','assets/sp2.jpg'),
-    (6,2,3,'','assets/sp1.jpg');
+    (6,2,3,'','assets/sp2.jpg'),
+    (7,1,1,'','assets/sp1.jpg');
+    
 
            
 
