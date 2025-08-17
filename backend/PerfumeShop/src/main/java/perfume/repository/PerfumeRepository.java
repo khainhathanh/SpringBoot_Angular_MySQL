@@ -47,13 +47,23 @@ public class PerfumeRepository {
 	@Autowired
 	private TradeMarkMapper tradeMarkRowMapper;
 	
-	public List<Perfume> findPerfume (Integer size, Integer offset) {
-        String sql = "SELECT * FROM `perfume`.perfumes LIMIT ? OFFSET ?";
+	public List<Perfume> findPerfumes (Integer size, Integer offset, String keyWord) {
+        String sql = "SELECT * FROM `perfume`.perfumes";
+        
+        if (keyWord != null && !keyWord.trim().isEmpty()) {
+            sql += " WHERE name LIKE '%" + keyWord + "%'";
+        }
+
+        sql += " LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, perfumeRowMapper, size, offset);
     }
 	
-	public Integer countAllPerfume() {
+	public Integer countAllPerfume(String keyWord) {
         String sql = "SELECT COUNT(*) FROM `perfume`.perfumes";
+        if (keyWord != null && ! keyWord.trim().isEmpty()) {
+            sql += " WHERE name LIKE '%" + keyWord + "%'";
+        }
+
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 	
@@ -77,6 +87,11 @@ public class PerfumeRepository {
 		String placeholders = idSmellList.stream().map(idSmell -> "?").collect(Collectors.joining(","));
         String sql = "SELECT * FROM perfume.smells WHERE id_smell IN ("+ placeholders +")";
         return jdbcTemplate.query(sql, smellMapper, idSmellList.toArray());
+    }
+	
+	public List<Smells> findAllSmell() {
+        String sql = "SELECT * FROM perfume.smells";
+        return jdbcTemplate.query(sql, smellMapper);
     }
 	
     public List<PicturePerfume> findPicturePerfumeById(Integer id_perfume, Integer id_smell) {

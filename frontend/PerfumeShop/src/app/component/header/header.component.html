@@ -10,17 +10,22 @@
 
             <div class="d-flex flex-wrap w-30 align-items-center justify-content-center justify-content-lg-center col-12 col-lg-auto">
                 <form class="d-flex position-relative w-100 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-12">
-                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                    <a href="/" class="d-flex position-absolute top-50 end-12 translate-middle-y align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <input type="text" [(ngModel)]="keyWord" name="wordKey" class="form-control" placeholder="Search..." aria-label="Search">
+                    <a class="d-flex position-absolute top-50 end-12 translate-middle-y align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+                    (click)="searchPerfume()">
                         <i class="bi bi-search"></i>
                     </a>
                 </form>
             </div>
             
               <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-end col-12 col-lg-auto">
-                <div class="text-start me-3 col-12 col-lg-auto">
-                    <a class="d-flex  align-items-center justify-content-left mb-2 mb-lg-0 text-dark text-decoration-none" (click)="getCartPerfume()">
-                        <i class="bi bi-cart"><sub>{{productAmount}}</sub></i>
+                <div class="text-start me-4 col-12 col-lg-auto">
+                    <a class="d-flex align-items-center text-dark text-decoration-none" (click)="getCartPerfume()">
+                        <i class="bi bi-cart position-relative">
+                            <span *ngIf="productAmount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{productAmount}}
+                            </span>
+                        </i>
                     </a>
                 </div>
                 

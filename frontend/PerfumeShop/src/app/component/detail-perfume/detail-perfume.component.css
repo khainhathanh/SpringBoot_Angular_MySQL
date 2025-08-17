@@ -22,3 +22,10 @@
     height: 60px;
 }
 
+.form-select:focus {
+    box-shadow: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}

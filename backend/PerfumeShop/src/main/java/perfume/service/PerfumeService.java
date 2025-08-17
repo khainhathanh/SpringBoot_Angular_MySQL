@@ -1,6 +1,7 @@
 package perfume.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,14 +26,14 @@ public class PerfumeService {
 	@Autowired
 	private PerfumeRepository perfumeRepository;
 
-	public PagePerfume<PerfumeDto> listAllPerfumes(Integer page, Integer size) {
+	public PagePerfume<PerfumeDto> listPerfumes(Integer page, Integer size, String keyWord) {
 		PagePerfume<PerfumeDto> pagePerfumeDto = new PagePerfume<>();
 		//vị trí bắt đầu lấy trong listPer
 		int offset = (page * size) - size ;
 		// Lấy tổng per hiện có
-		Integer totalPerfume = perfumeRepository.countAllPerfume();
+		Integer totalPerfume = perfumeRepository.countAllPerfume(keyWord);
 		// Tìm per theo trang
-		List<Perfume> perfumeList = perfumeRepository.findPerfume(size, offset);
+		List<Perfume> perfumeList = perfumeRepository.findPerfumes(size, offset, keyWord);
 		// Lấy key idPer của các per đã tìm
 		List<Integer> listIdPers = perfumeList.stream().map(Perfume::getIdPerfume).collect(Collectors.toList());
 		// lấy tất cả hương dựa theo key của các per vừa tìm
@@ -49,10 +50,15 @@ public class PerfumeService {
 		// cặp key (idPer, idSmell) của hương đầu tiên ứng với per
 		List<Map<String, Integer>> keyListSmellPerfume = new ArrayList<>();
 		for (SmellPerfume smellPerfume: listSmellPerfumeFirst) {
-			keyListSmellPerfume.add(Map.of("id_perfume", smellPerfume.getIdPerfume(), "id_smell", smellPerfume.getIdSmell()));
+			Map<String, Integer> mapKeyPerSmell = new HashMap<>();
+			mapKeyPerSmell.put("id_perfume", smellPerfume.getIdPerfume());
+			mapKeyPerSmell.put("id_smell", smellPerfume.getIdSmell());
+			keyListSmellPerfume.add(mapKeyPerSmell);
 		}
 		// Tìm hình ảnh theo cặp key (idPer, idSmell) vừa lấy
 		List<PicturePerfume> picturePerfume = perfumeRepository.findPicturePerfumeById(keyListSmellPerfume);
+		// Tìm tên hương theo key trên
+		List<Smells> smellList = perfumeRepository.findAllSmell();
 		// Tổng page = tổng per / tổng per trên 1 trang
 		int totalPage = totalPerfume / perfumeList.size();
 		List<PerfumeDto> listPerfumeDto = new ArrayList<>();
@@ -63,7 +69,11 @@ public class PerfumeService {
 			// lọc các ảnh đã tìm theo idPer để set vào
 			List<PicturePerfume> pictureOnePerfume = picturePerfume.stream()
 					.filter(smellPer -> per.getIdPerfume() == smellPer.getIdPerfume()).collect(Collectors.toList());
+			// Tìm tên hương theo key trên
+			List<Smells> smells = smellList.stream()
+					.filter(smell -> smellPerfumeList.get(0).getIdSmell() == smell.getIdSmell()).collect(Collectors.toList());
 			PerfumeDto perfumeDto = new PerfumeDto();
+			perfumeDto.setSmells(smells);
 			perfumeDto.setPerfume(per);
 			perfumeDto.setSmellPerfumeList(smellPerfumeList);
 			perfumeDto.setPicturePerfumeList(pictureOnePerfume);
@@ -94,7 +104,10 @@ public class PerfumeService {
 		// cặp key (idPer, idSmell) của hương tương ứng với per
 		List<Map<String, Integer>> keyListSmellPerfume = new ArrayList<>();
 		for (SmellPerfume smellPerfume: smellPerfumeList) {
-			keyListSmellPerfume.add(Map.of("id_perfume", smellPerfume.getIdPerfume(), "id_smell", smellPerfume.getIdSmell()));
+			Map<String, Integer> mapKeyPerSmell = new HashMap<>();
+			mapKeyPerSmell.put("id_perfume", smellPerfume.getIdPerfume());
+			mapKeyPerSmell.put("id_smell", smellPerfume.getIdSmell());
+			keyListSmellPerfume.add(mapKeyPerSmell);
 		}
 		// Tìm hình ảnh theo cặp key (idPer, idSmell) vừa lấy
 		List<PicturePerfume> picturePerfume = perfumeRepository.findPicturePerfumeById(keyListSmellPerfume);
@@ -103,9 +116,7 @@ public class PerfumeService {
 		perfumeDto.setPerfume(perfume);
 		perfumeDto.setSmellPerfumeList(smellPerfumeList);
 		perfumeDto.setPicturePerfumeList(picturePerfume);
-		return perfumeDto;
-				
+		return perfumeDto;		
 	}
-	
 	
 }

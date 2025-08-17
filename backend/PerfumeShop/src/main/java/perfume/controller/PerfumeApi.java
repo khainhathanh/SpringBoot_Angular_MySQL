@@ -19,10 +19,11 @@ public class PerfumeApi {
 	@Autowired
 	private  PerfumeService perfumeService;
 	
-	@GetMapping("/listAllPerfumes")
-    public PagePerfume<PerfumeDto> getAllUsers(@RequestParam(defaultValue = "0", required = false) Integer page,
-    		@RequestParam(defaultValue = "10", required = false) Integer size) {
-		 return perfumeService.listAllPerfumes(page,size);
+	@GetMapping("/listPerfumes")
+    public PagePerfume<PerfumeDto> getPerfumes(@RequestParam(defaultValue = "0", required = false) Integer page,
+    		@RequestParam(defaultValue = "10", required = false) Integer size,
+    		@RequestParam(defaultValue = "", required = false) String keyWord) {
+		 return perfumeService.listPerfumes(page, size, keyWord);
     }
 	
 	@GetMapping("/listAllCarousel")
@@ -34,4 +35,5 @@ public class PerfumeApi {
     public PerfumeDto getDetailPerfume(@PathVariable Long id) {
 		 return perfumeService.perfumeDetail(id);
     }
+	
 }

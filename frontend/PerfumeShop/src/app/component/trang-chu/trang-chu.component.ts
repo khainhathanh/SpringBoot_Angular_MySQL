@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PerfumesService } from '../../service/perfumes.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Carousel } from '../../entity/Carousel';
 import { Page } from '../../entity/Page';
 import { Perfume } from '../../entity/Perfume';
@@ -12,26 +12,29 @@ import { Perfume } from '../../entity/Perfume';
 })
 export class TrangChuComponent {
   pagePerfume!: Page;
-  listCart: any;
+  listCart!: any[];
   listCarousel!: Carousel[];
   totalRatingLevel: number = 5;
   totalRatingArray!: Array<number>;
   pageCurrent : number = 1;
   size : number = 1;
+  keyword: string = '';
 
-  constructor (private perfumeService : PerfumesService, private router : Router) {}
+  constructor (private perfumeService : PerfumesService, private router : Router, private route: ActivatedRoute) {}
 
   ngOnInit () {
-    this.getAllPerfume()
+    this.route.queryParams.subscribe(params => {
+      this.keyword = params['keyword'] || '';
+      this.getPerfumes();
+    });
     this.getAllCarousels()
   }
 
-  getAllPerfume(){
-    this.perfumeService.getAllPerfumes(this.pageCurrent, this.size).subscribe((data : any)=>{
+  getPerfumes(){
+    this.perfumeService.getPerfumes(this.pageCurrent, this.size, this.keyword).subscribe((data : any)=>{
       this.pagePerfume = data;
       this.pagePerfume.totalPageList = Array.from({ length: this.pagePerfume.totalPage }, (_, i) => i + 1);
       this.totalRatingArray = Array.from({ length: this.totalRatingLevel }, (_, i) => i + 1);
-      // console.log(this.pagePerfume)
     })
   }
 
@@ -51,7 +54,7 @@ export class TrangChuComponent {
 
   getPagePerfume = (page: number) => {
     this.pageCurrent = page;
-    this.getAllPerfume();
+    this.getPerfumes();
   }
 
   getPagePrevious() {
@@ -62,18 +65,25 @@ export class TrangChuComponent {
     this.pageCurrent < this.pagePerfume.totalPage ? this.pageCurrent++ : this.pageCurrent
   }
 
-  addCart(idPerfume: number) {
+  addCart(idPerfume: number, idSmell: number) {
     let perfume = this.pagePerfume.listItem.filter(item => item.perfume.idPerfume == idPerfume);
     const cartData = localStorage.getItem('listCart');
-    this.listCart = cartData === null ? null : JSON.parse(cartData);
-    if (this.listCart === null) {
-      this.listCart = perfume
-      localStorage.setItem('listCart', JSON.stringify(this.listCart));
-          console.log(this.listCart)
+    this.listCart = cartData ? JSON.parse(cartData) : [];
+    let indexPertoCart  = this.listCart?.findIndex(item => item.perfume.idPerfume == idPerfume
+      && item.smellPerfumeList[0].idSmell == idSmell);
+    if (indexPertoCart !== undefined && indexPertoCart !== -1) {
+      this.listCart[indexPertoCart].quantity = this.listCart[indexPertoCart].quantity + 1;
     } else {
-      this.listCart.push(perfume)
-      console.log(this.listCart)
-    } 
-    
+      let smellList = perfume[0].smells.filter((item: any) => item.idSmell == idSmell);
+      const newPerfume = {
+        ...perfume[0], // copy dữ liệu
+        smells: [...smellList],
+        quantity: 1
+      };
+      this.listCart.push(newPerfume)
+    }
+    localStorage.setItem('listCart', JSON.stringify(this.listCart));
+    localStorage.setItem('totalCart', JSON.stringify(this.listCart.length));
   }
+
 }

@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
     { path: '', component: TrangChuComponent },
-    { path: 'trang-chu', component: TrangChuComponent },
+    { path: 'perfume', component: TrangChuComponent },
     { path: 'detail-perfume', component: DetailPerfumeComponent },
     { path: 'cart-perfume', component: CartPerfumeComponent },
     { path: 'payment-perfume', component: PaymentPerfumeComponent }

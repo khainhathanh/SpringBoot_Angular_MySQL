@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PicturePerfume } from '../../entity/PicturePerfume';
 import { SmellPerfume } from '../../entity/SmellPerfume';
 import { Trademark } from '../../entity/Trademark';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-perfume',
@@ -18,6 +19,9 @@ export class DetailPerfumeComponent {
   statusPer!: string;
   gender!: string;
   totalRatingArray!: Array<number>;
+  listCart: any[] = [];
+
+  constructor (private router : Router){}
 
   ngOnInit() {
     this.perfume = JSON.parse(localStorage.getItem('shareData')!)
@@ -42,10 +46,37 @@ export class DetailPerfumeComponent {
   }
 
   dashQuantity() {
-    this.amountPer > 0 ? this.amountPer-- : this.amountPer
+    this.amountPer > 1 ? this.amountPer-- : this.amountPer
   }
 
   pushQuantity() {
     this.amountPer < this.smellPerfume.amount ? this.amountPer++ : this.amountPer
+  }
+
+  addCart(idPerfume: number, idSmell: number) {
+    const cartData = localStorage.getItem('listCart');
+    this.listCart = cartData ? JSON.parse(cartData) : [];
+    let indexPertoCart = this.listCart?.findIndex(item => item.perfume.idPerfume === idPerfume &&
+  item.smellPerfumeList.some((smell:any) => smell.idSmell === idSmell));
+    if (indexPertoCart !== undefined && indexPertoCart !== -1) {
+      this.listCart[indexPertoCart].quantity = Number(this.listCart[indexPertoCart].quantity) + Number(this.amountPer);
+    } else {
+      let smellList = this.perfume.smells.filter((item: any) => item.idSmell == idSmell);
+      const newPerfume = {
+        ...this.perfume, // copy dữ liệu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+        picturePerfumeList: [...this.picturePerfume],
+        smellPerfumeList: [this.smellPerfume],
+        smells: [...smellList],
+        quantity: this.amountPer
+      };
+      this.listCart.push(newPerfume)
+    }
+    localStorage.setItem('listCart', JSON.stringify(this.listCart));
+    localStorage.setItem('totalCart', JSON.stringify(this.listCart.length));
+  }
+
+  buyNow (idPerfume: number, idSmell: number) {
+    this.addCart(idPerfume, idSmell);
+    this.router.navigate(['/cart-perfume'])
   }
 }
