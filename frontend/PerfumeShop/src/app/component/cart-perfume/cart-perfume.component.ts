@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdatePerfumeModalComponent } from '../popup/update-perfume-modal/update-perfume-modal.component';
 
 @Component({
   selector: 'app-cart-perfume',
@@ -11,7 +13,7 @@ export class CartPerfumeComponent {
   totalCost: number = 0;
   totalCart: any;
 
-  constructor (private router : Router) {}
+  constructor (private router : Router, private dialog: MatDialog) {}
 
   ngOnInit () {
     this.listCart = JSON.parse(localStorage.getItem('listCart')!);
@@ -45,5 +47,12 @@ export class CartPerfumeComponent {
       localStorage.removeItem('listCart');
       localStorage.removeItem('totalCart');
     }
+  }
+
+  openModal(): void {
+	  this.dialog.open(UpdatePerfumeModalComponent, {
+      width: '400px',
+      data: { } 
+    });
   }
 }

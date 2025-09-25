@@ -41,7 +41,7 @@
   
               </div>
               <div class="d-flex justify-content-between mb-2">
-                <h5 class="mb-0"><a href="#" class="text-dark text-decoration-none">{{perfume.perfume.name}}</a></h5>
+                <h5 class="mb-0"><a class="text-dark text-decoration-none">{{perfume.perfume.name}}</a></h5>
                 <div class="d-block">
                   <h5 class="text-dark text-end">{{perfume.smellPerfumeList[0].cost}}</h5>
                 </div>
@@ -63,12 +63,12 @@
       </div>
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" (click)="getPagePrevious()">Previous</a>
+          <li class="page-item" *ngIf="pagePerfume && pagePerfume.totalPage > 1">
+            <button class="page-link control-page" (click)="getPagePrevious()" [disabled]="pageCurrent <= 1">Previous</button>
           </li>
           <li *ngFor="let page of pagePerfume?.totalPageList; index as i; first as isFirst" class="page-item" [ngClass]="pageCurrent === page ? 'active' :''"><a class="page-link" (click)="getPagePerfume(page)">{{page}}</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" (click)="getPageNext()">Next</a>
+          <li class="page-item" *ngIf="pagePerfume && pagePerfume.totalPage > 1">
+            <button class="page-link control-page" (click)="getPageNext()" [disabled]="pagePerfume && pageCurrent >= pagePerfume.totalPage">Next</button>
           </li>
         </ul>
       </nav>

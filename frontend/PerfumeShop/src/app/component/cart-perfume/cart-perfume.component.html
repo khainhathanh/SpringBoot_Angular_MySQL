@@ -22,7 +22,7 @@
                         <input class="d-block form-control form-control-sm" type="number" id="quantity1" [(ngModel)]="perfume.quantity">
                     </div>
                     <div class="d-flex flex-wrap justify-content-between">
-                        <button class="btn btn-outline-warning btn-sm btn-block mb-2" type="button">Update cart</button>
+                        <button class="btn btn-outline-warning btn-sm btn-block mb-2" type="button" (click)="openModal()">Update cart</button>
                         <button class="btn btn-outline-danger btn-sm btn-block mb-2" type="button" (click)="removePerfume(i)">Remove</button>
                     </div>
                     

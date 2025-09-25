@@ -2,3 +2,11 @@
     width: 35px; 
     height: 35px;
 }
+
+.page-link:focus {
+    box-shadow: none;
+}
+
+.control-page:disabled {
+    background-color:rgb(197, 195, 195) ;
+}

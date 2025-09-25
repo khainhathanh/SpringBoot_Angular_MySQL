@@ -59,10 +59,12 @@ export class TrangChuComponent {
 
   getPagePrevious() {
     this.pageCurrent > 1 ? this.pageCurrent-- : this.pageCurrent
+    this.getPerfumes();
   }
 
   getPageNext() {
     this.pageCurrent < this.pagePerfume.totalPage ? this.pageCurrent++ : this.pageCurrent
+    this.getPerfumes();
   }
 
   addCart(idPerfume: number, idSmell: number) {
